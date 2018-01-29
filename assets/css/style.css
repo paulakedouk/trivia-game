@@ -1,0 +1,26 @@
+body {
+  background: #631172;
+}
+
+.title {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title img {
+  width: 600px;
+  margin-top: 100px;
+}
+
+.start-btn {
+  width: 200px;
+  color: #631172;
+  font-size: 36px;
+  border-radius: 50px;
+  background: #fed501;
+  padding: 10px;
+  text-align: center;
+  font-family: Helsinki;
+  margin: 0 auto;
+}
