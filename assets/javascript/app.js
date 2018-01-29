@@ -67,22 +67,37 @@ var questions = [
 
 // Global variables
 var game;
+var counter = 0;
+var clock;
+var timer = 30;
 
 // Start the game when that start button is clicked
 $('body').on('click', '.start-btn', function(e) {
   event.preventDefault();
-  console.log(questions[0].question);
-  game =
-    "<p class='timer text-center'>Time Remaining:<br><span class='time'>30</span></p><p class='question text-center'>" +
-    questions[0].question +
-    '</p>';
+
+  for (var i = 0; i < questions.length; i++) {
+    console.log(questions[i].question);
+    game =
+      "<p class='timer text-center'>Time Remaining:<br><span class='time'>30</span></p><p class='question text-center'>" +
+      questions[i].question +
+      '</p>';
+  }
 
   $('.main').html(game);
+  timerHolder();
 });
 
+// Timer function
+function timerHolder() {
+  clock = setInterval(seconds, 1000);
+  function seconds() {
+    if (timer > 0) {
+      timer--;
+    }
+    $('.time').html(timer);
+  }
+}
 // Show questions and answers options
-
-// Show that time remaining
 
 // When answer was correct or wrong, show some picture
 
