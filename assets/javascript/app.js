@@ -3,10 +3,10 @@ var questions = [
   {
     question: 'What does doctype in HTML do?',
     answers: [
-      { answer: 'Tells the browser how to render the HTML markup', value: true },
-      { answer: 'Loads all references to external JavaScript files', value: false },
-      { answer: 'Adds CSS styles to the HTML page', value: false },
-      { answer: "It doesn't do anything it's just there as a comment to other developers", value: false }
+      { answer: 'A. Tells the browser how to render the HTML markup', value: true },
+      { answer: 'B. Loads all references to external JavaScript files', value: false },
+      { answer: 'C. Adds CSS styles to the HTML page', value: false },
+      { answer: "D. It doesn't do anything it's just there as a comment to other developers", value: false }
     ]
   },
   {
@@ -70,37 +70,80 @@ var game;
 var counter = 0;
 var clock;
 var timer = 30;
+var correctCounter = 0;
+var incorrectCounter = 0;
 
-// Start the game when that start button is clicked
-$('body').on('click', '.start-btn', function(e) {
-  event.preventDefault();
+$(document).ready(function() {
+  // Start the game when that start button is clicked
+  $('body').on('click', '.start-btn', function(e) {
+    event.preventDefault();
+    questionsHolder();
+  });
 
-  for (var i = 0; i < questions.length; i++) {
-    console.log(questions[i].question);
+  $('body').on('click', '.answer', function() {
+    // console.log($(this));
+    chosenAnswer = $(this).text();
+    var answerCounter = questions[counter].answers;
+    var answer = $('.answer');
+    for (var i = 0; i < answerCounter.length; i++) {
+      console.log(chosenAnswer);
+      console.log(answerCounter[i].answer, answerCounter[i].value);
+
+      if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
+        $(answer[i]).css('background-color', 'green');
+        $(answer[i]).css('color', 'white');
+        clearInterval(timerHolder);
+        rigthAnswer();
+      } else {
+        console.log('wrong');
+      }
+    }
+  });
+
+  // Questions holder
+  function questionsHolder() {
+    console.log(questions[counter]);
     game =
       "<p class='timer text-center'>Time Remaining:<br><span class='time'>30</span></p><p class='question text-center'>" +
-      questions[i].question +
+      questions[counter].question +
+      "</p><p class='answer first-answer'>" +
+      questions[counter].answers[0].answer +
+      "</p><p class='answer'>" +
+      questions[counter].answers[1].answer +
+      "</p><p class='answer'>" +
+      questions[counter].answers[2].answer +
+      "</p><p class='answer'>" +
+      questions[counter].answers[3].answer +
       '</p>';
+    $('.main').html(game);
+    timerHolder();
   }
 
-  $('.main').html(game);
-  timerHolder();
-});
-
-// Timer function
-function timerHolder() {
-  clock = setInterval(seconds, 1000);
-  function seconds() {
-    if (timer > 0) {
-      timer--;
+  function questionCounter() {
+    if (counter < 7) {
+      counter++;
+      questionsHolder();
+      timer = 30;
+      timerHolder();
     }
-    $('.time').html(timer);
   }
-}
-// Show questions and answers options
 
-// When answer was correct or wrong, show some picture
+  // Timer function
+  function timerHolder() {
+    clock = setInterval(seconds, 1000);
+    function seconds() {
+      if (timer > 0) {
+        timer--;
+      }
+      $('.time').html(timer);
+    }
+  }
 
-// Finish the game and show: correct answers, incorrect answers and, unanswered
+  // Show questions and answers options
 
-// Show button start over
+  // When answer was correct or wrong, show some picture
+
+  // Finish the game and show: correct answers, incorrect answers and, unanswered
+
+  // Show button start over
+});

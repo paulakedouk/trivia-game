@@ -44,4 +44,15 @@ body {
 
 .question {
   font-size: 30px;
+  margin-bottom: 50px;
+}
+
+.answer {
+  padding: 20px;
+  color: #631172;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 4px;
 }
