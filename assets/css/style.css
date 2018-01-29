@@ -29,11 +29,11 @@ body {
   padding: 10px;
   text-align: center;
   margin: 0 auto;
+  cursor: pointer;
 }
 
 .timer,
 .score {
-  margin-top: 50px;
   margin-bottom: 30px;
   color: #fed501;
 }
@@ -56,10 +56,6 @@ body {
   margin-bottom: 20px;
   background-color: white;
   border-radius: 4px;
-}
-
-.score {
-  text-align: right;
 }
 
 .gif {

@@ -65,13 +65,26 @@ var questions = [
   }
 ];
 
-var imagesRight = [
-  "<img class='center-block gif' src='https://media.giphy.com/media/l0K4m0mzkJDAIdhHW/giphy.gif'>",
-  "<img class='center-block gif' src='https://media.giphy.com/media/WgMulghJVjLry/giphy.gif'>",
-  "<img class='center-block gif' src='https://media.giphy.com/media/l0MYJnJQ4EiYLxvQ4/giphy.gif'>",
-  "<img class='center-block gif' src='https://media.giphy.com/media/QnMJm9bVR9nDa/giphy.gif'>"
-];
-
+var images = {
+  right: [
+    "<img class='center-block gif' src='https://media.giphy.com/media/l0K4m0mzkJDAIdhHW/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/WgMulghJVjLry/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/l0MYJnJQ4EiYLxvQ4/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/wFOC9RazP97i0/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/l46Cd4qNHmnDI8Hks/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/nXxOjZrbnbRxS/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/1rf4V8kgTLvva/giphy.gif'>"
+  ],
+  wrong: [
+    "<img class='center-block gif' src='https://media.giphy.com/media/MhVdjqeKACHmM/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/26xBwYrIXjIlDjr7G/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/GmlDMFfcNy7tu/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/3oz8xLd9DJq2l2VFtu/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/NERY7uUYtur4Y/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/12XMGIWtrHBl5e/giphy.gif'>",
+    "<img class='center-block gif' src='https://media.giphy.com/media/gnE4FFhtFoLKM/giphy.gif'>"
+  ]
+};
 // Global variables
 var game;
 var counter = 0;
@@ -93,16 +106,12 @@ $(document).ready(function() {
     var answerCounter = questions[counter].answers;
     var answer = $('.answer');
     for (var i = 0; i < answerCounter.length; i++) {
-      //   console.log(chosenAnswer);
-      //   console.log(answerCounter[i].answer, answerCounter[i].value);
-
       if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
-        $(answer[i]).css('background-color', 'green');
-        $(answer[i]).css('color', 'white');
         clearInterval(clock);
         rightAnswer();
-      } else {
-        console.log('wrong');
+      } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
+        clearInterval(clock);
+        wrongAnswer();
       }
     }
   });
@@ -113,8 +122,25 @@ $(document).ready(function() {
     $('.row').html(
       "<p class='timer text-left col-sm-6'>Time Remaining:<br><span class='timer'>" + timer + '</span></p>'
     );
-    $('.row').append('<p class="score text-right col-sm-6">Right answers: ' + correctCounter + '</p>');
-    $('.main').append('<p class="right text-center col-sm-12">You got it!<br>' + imagesRight[counter] + '</p>');
+    $('.row').append(
+      '<div class="score col-sm-6"><p class="score text-right">Right answers: ' + correctCounter + '</p></div><br>'
+    );
+    $('.score').append('<p class="score text-right">Wrong answers: ' + incorrectCounter + '</p>');
+    $('.main').append('<p class="right text-center col-sm-12">You got it!<br>' + images.right[counter] + '</p>');
+    setTimeout(questionCounter, 4000);
+  }
+
+  function wrongAnswer() {
+    incorrectCounter++;
+    $('.main').html('<div class="row"></div>');
+    $('.row').html(
+      "<p class='timer text-left col-sm-6'>Time Remaining:<br><span class='timer'>" + timer + '</span></p>'
+    );
+    $('.row').append(
+      '<div class="score col-sm-6"><p class="score text-right">Right answers: ' + correctCounter + '</p></div><br>'
+    );
+    $('.score').append('<p class="score text-right">Wrong answers: ' + incorrectCounter + '</p>');
+    $('.main').append('<p class="right text-center col-sm-12">Wrong answer!<br>' + images.wrong[counter] + '</p>');
     setTimeout(questionCounter, 4000);
   }
 
