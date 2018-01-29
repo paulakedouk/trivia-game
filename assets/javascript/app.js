@@ -65,6 +65,13 @@ var questions = [
   }
 ];
 
+var imagesRight = [
+  "<img class='center-block gif' src='https://media.giphy.com/media/l0K4m0mzkJDAIdhHW/giphy.gif'>",
+  "<img class='center-block gif' src='https://media.giphy.com/media/WgMulghJVjLry/giphy.gif'>",
+  "<img class='center-block gif' src='https://media.giphy.com/media/l0MYJnJQ4EiYLxvQ4/giphy.gif'>",
+  "<img class='center-block gif' src='https://media.giphy.com/media/QnMJm9bVR9nDa/giphy.gif'>"
+];
+
 // Global variables
 var game;
 var counter = 0;
@@ -86,25 +93,35 @@ $(document).ready(function() {
     var answerCounter = questions[counter].answers;
     var answer = $('.answer');
     for (var i = 0; i < answerCounter.length; i++) {
-      console.log(chosenAnswer);
-      console.log(answerCounter[i].answer, answerCounter[i].value);
+      //   console.log(chosenAnswer);
+      //   console.log(answerCounter[i].answer, answerCounter[i].value);
 
       if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
         $(answer[i]).css('background-color', 'green');
         $(answer[i]).css('color', 'white');
-        clearInterval(timerHolder);
-        rigthAnswer();
+        clearInterval(clock);
+        rightAnswer();
       } else {
         console.log('wrong');
       }
     }
   });
 
+  function rightAnswer() {
+    correctCounter++;
+    $('.main').html('<div class="row"></div>');
+    $('.row').html(
+      "<p class='timer text-left col-sm-6'>Time Remaining:<br><span class='timer'>" + timer + '</span></p>'
+    );
+    $('.row').append('<p class="score text-right col-sm-6">Right answers: ' + correctCounter + '</p>');
+    $('.main').append('<p class="right text-center col-sm-12">You got it!<br>' + imagesRight[counter] + '</p>');
+    setTimeout(questionCounter, 4000);
+  }
+
   // Questions holder
   function questionsHolder() {
-    console.log(questions[counter]);
     game =
-      "<p class='timer text-center'>Time Remaining:<br><span class='time'>30</span></p><p class='question text-center'>" +
+      "<p class='timer text-left col-sm-6'>Time Remaining:<br><span class='time'>30</span></p><p class='question text-center'>" +
       questions[counter].question +
       "</p><p class='answer first-answer'>" +
       questions[counter].answers[0].answer +
@@ -134,7 +151,10 @@ $(document).ready(function() {
     function seconds() {
       if (timer > 0) {
         timer--;
+      } else if (timer === 0) {
+        clearInterval(clock);
       }
+
       $('.time').html(timer);
     }
   }

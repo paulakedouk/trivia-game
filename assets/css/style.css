@@ -31,7 +31,8 @@ body {
   margin: 0 auto;
 }
 
-.timer {
+.timer,
+.score {
   margin-top: 50px;
   margin-bottom: 30px;
   color: #fed501;
@@ -55,4 +56,17 @@ body {
   margin-bottom: 20px;
   background-color: white;
   border-radius: 4px;
+}
+
+.score {
+  text-align: right;
+}
+
+.gif {
+  width: 500px;
+  margin-top: 50px;
+}
+
+.right {
+  font-size: 36px;
 }
