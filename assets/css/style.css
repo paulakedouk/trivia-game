@@ -1,5 +1,12 @@
 body {
   background: #631172;
+  font-family: Helsinki;
+  color: white;
+}
+
+.jumbotron {
+  box-sizing: border-box;
+  height: 600px;
 }
 
 .title {
@@ -21,6 +28,20 @@ body {
   background: #fed501;
   padding: 10px;
   text-align: center;
-  font-family: Helsinki;
   margin: 0 auto;
+}
+
+.timer {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  color: #fed501;
+}
+
+.time {
+  color: #ff5270;
+  font-size: 30px;
+}
+
+.question {
+  font-size: 30px;
 }
