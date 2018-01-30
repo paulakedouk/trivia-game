@@ -85,6 +85,12 @@ body {
 }
 
 .wrong-answer {
-  background: red;
+  background: #ff5270;
   color: white;
+}
+
+.times-up {
+  font-size: 36px;
+  color: #ff5270;
+  text-align: center;
 }

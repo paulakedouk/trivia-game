@@ -65,32 +65,11 @@ var questions = [
   }
 ];
 
-var images = {
-  right: [
-    "<img class='center-block gif' src='https://media.giphy.com/media/l0K4m0mzkJDAIdhHW/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/WgMulghJVjLry/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/l0MYJnJQ4EiYLxvQ4/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/wFOC9RazP97i0/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/l46Cd4qNHmnDI8Hks/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/nXxOjZrbnbRxS/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/1rf4V8kgTLvva/giphy.gif'>"
-  ],
-  wrong: [
-    "<img class='center-block gif' src='https://media.giphy.com/media/MhVdjqeKACHmM/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/26xBwYrIXjIlDjr7G/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/GmlDMFfcNy7tu/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/3oz8xLd9DJq2l2VFtu/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/NERY7uUYtur4Y/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/12XMGIWtrHBl5e/giphy.gif'>",
-    "<img class='center-block gif' src='https://media.giphy.com/media/gnE4FFhtFoLKM/giphy.gif'>"
-  ]
-};
-
 // Global variables
 var game;
 var counter = 0;
 var clock;
-var timer = 30;
+var timer = 10;
 var correctCounter = 0;
 var incorrectCounter = 0;
 var unansweredCounter = 0;
@@ -114,9 +93,11 @@ $(document).ready(function() {
       if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
         clearInterval(clock);
         $(this).attr('class', 'right-answer answer');
+        setTimeout(questionCounter, 3000);
       } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
         clearInterval(clock);
         $(this).attr('class', 'wrong-answer answer');
+        setTimeout(questionCounter, 3000);
       }
     }
   });
@@ -125,10 +106,6 @@ $(document).ready(function() {
     correctCounter++;
     $('.time').html(timer);
     $('.score').text('Right answers: ' + correctCounter);
-
-    $('.questions-page').html(
-      '<p class="right text-center col-sm-12">You got it!<br>' + images.right[counter] + '</p>'
-    );
     setTimeout(questionCounter, 4000);
   }
 
@@ -136,19 +113,14 @@ $(document).ready(function() {
     incorrectCounter++;
     $('.time').html(timer);
     $('.score').text('Wrong answers: ' + incorrectCounter);
-
-    $('.questions-page').html(
-      '<p class="right text-center col-sm-12">Wrong answer!<br>' + images.wrong[counter] + '</p>'
-    );
     setTimeout(questionCounter, 4000);
   }
 
   function unanswered() {
     unanswered++;
-    game =
-      '<p class="text-center">Time out!</p>' +
-      '<img class="center-block gif col-sm-12" src="https://media.giphy.com/media/dePSX0ft8tlJe/giphy.gif">';
-    $('.main').html(game);
+    $('.main').append("<p class='times-up'>Time's up!</p>");
+    $('.right-answer').css('background-color', 'green');
+    setTimeout(questionCounter, 4000);
   }
 
   // Start the game
@@ -178,7 +150,7 @@ $(document).ready(function() {
     if (counter < 7) {
       counter++;
       startGame();
-      timer = 30;
+      timer = 10;
       timerHolder();
     }
   }
