@@ -126,7 +126,10 @@ function unanswered() {
   unanswered++;
   $('.main').append("<p class='times-up'>Time's up!</p>");
   $('.right-answer').css('background-color', 'green');
-  setTimeout(questionCounter, 2000);
+  // setTimeout(questionCounter, 2000);
+  $('.times-up')
+    .delay(1000)
+    .fadeOut(400);
 }
 
 // Start the game
