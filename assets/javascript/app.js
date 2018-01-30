@@ -92,11 +92,13 @@ $(document).ready(function() {
     for (var i = 0; i < answerCounter.length; i++) {
       if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
         clearInterval(clock);
-        $(this).attr('class', 'right-answer answer');
+        var right = $(this).attr('class', 'right-answer answer');
         rightAnswer();
       } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
         clearInterval(clock);
         $(this).attr('class', 'wrong-answer answer');
+        $('.first-answer').css('background-color', 'green');
+        $('.first-answer').css('color', 'white');
         wrongAnswer();
       }
     }
@@ -126,10 +128,10 @@ function unanswered() {
   unanswered++;
   $('.main').append("<p class='times-up'>Time's up!</p>");
   $('.right-answer').css('background-color', 'green');
-  // setTimeout(questionCounter, 2000);
   $('.times-up')
-    .delay(1000)
+    .delay(2000)
     .fadeOut(400);
+  setTimeout(questionCounter, 2000);
 }
 
 // Start the game
