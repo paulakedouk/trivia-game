@@ -4,20 +4,20 @@ body {
   color: white;
 }
 
-.jumbotron {
-  box-sizing: border-box;
-  height: 600px;
-}
-
-.title {
+.main {
   max-width: 960px;
   margin: 0 auto;
-  text-align: center;
+  margin-top: 50px;
 }
 
-.title img {
-  width: 600px;
-  margin-top: 100px;
+.hidden {
+  visibility: hidden;
+}
+
+.img-initial {
+  background: url('../images/trivia-game.png') no-repeat center top;
+  background-size: 70%;
+  height: 520px;
 }
 
 .start-btn {
@@ -36,6 +36,12 @@ body {
 .score {
   margin-bottom: 30px;
   color: #fed501;
+  margin: 0;
+  padding: 0;
+}
+
+.score {
+  text-align: right;
 }
 
 .time {
@@ -44,8 +50,9 @@ body {
 }
 
 .question {
-  font-size: 30px;
+  font-size: 27px;
   margin-bottom: 50px;
+  text-align: center;
 }
 
 .answer {
@@ -56,6 +63,7 @@ body {
   margin-bottom: 20px;
   background-color: white;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .gif {
@@ -65,4 +73,18 @@ body {
 
 .right {
   font-size: 36px;
+}
+
+.row {
+  margin: 0 auto;
+}
+
+.right-answer {
+  background: green;
+  color: white;
+}
+
+.wrong-answer {
+  background: red;
+  color: white;
 }

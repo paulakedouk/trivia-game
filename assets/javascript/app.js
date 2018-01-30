@@ -85,6 +85,7 @@ var images = {
     "<img class='center-block gif' src='https://media.giphy.com/media/gnE4FFhtFoLKM/giphy.gif'>"
   ]
 };
+
 // Global variables
 var game;
 var counter = 0;
@@ -92,80 +93,91 @@ var clock;
 var timer = 30;
 var correctCounter = 0;
 var incorrectCounter = 0;
+var unansweredCounter = 0;
 
 $(document).ready(function() {
   // Start the game when that start button is clicked
+  $('.answers').css('visibility', 'hidden');
   $('body').on('click', '.start-btn', function(e) {
     event.preventDefault();
-    questionsHolder();
+    startGame();
+    $('.answers').css('visibility', 'visible');
   });
 
   $('body').on('click', '.answer', function() {
     // console.log($(this));
     chosenAnswer = $(this).text();
     var answerCounter = questions[counter].answers;
+
     var answer = $('.answer');
     for (var i = 0; i < answerCounter.length; i++) {
       if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === true) {
         clearInterval(clock);
-        rightAnswer();
+        $(this).attr('class', 'right-answer answer');
       } else if (chosenAnswer === answerCounter[i].answer && answerCounter[i].value === false) {
         clearInterval(clock);
-        wrongAnswer();
+        $(this).attr('class', 'wrong-answer answer');
       }
     }
   });
 
   function rightAnswer() {
     correctCounter++;
-    $('.main').html('<div class="row"></div>');
-    $('.row').html(
-      "<p class='timer text-left col-sm-6'>Time Remaining:<br><span class='timer'>" + timer + '</span></p>'
+    $('.time').html(timer);
+    $('.score').text('Right answers: ' + correctCounter);
+
+    $('.questions-page').html(
+      '<p class="right text-center col-sm-12">You got it!<br>' + images.right[counter] + '</p>'
     );
-    $('.row').append(
-      '<div class="score col-sm-6"><p class="score text-right">Right answers: ' + correctCounter + '</p></div><br>'
-    );
-    $('.score').append('<p class="score text-right">Wrong answers: ' + incorrectCounter + '</p>');
-    $('.main').append('<p class="right text-center col-sm-12">You got it!<br>' + images.right[counter] + '</p>');
     setTimeout(questionCounter, 4000);
   }
 
   function wrongAnswer() {
     incorrectCounter++;
-    $('.main').html('<div class="row"></div>');
-    $('.row').html(
-      "<p class='timer text-left col-sm-6'>Time Remaining:<br><span class='timer'>" + timer + '</span></p>'
+    $('.time').html(timer);
+    $('.score').text('Wrong answers: ' + incorrectCounter);
+
+    $('.questions-page').html(
+      '<p class="right text-center col-sm-12">Wrong answer!<br>' + images.wrong[counter] + '</p>'
     );
-    $('.row').append(
-      '<div class="score col-sm-6"><p class="score text-right">Right answers: ' + correctCounter + '</p></div><br>'
-    );
-    $('.score').append('<p class="score text-right">Wrong answers: ' + incorrectCounter + '</p>');
-    $('.main').append('<p class="right text-center col-sm-12">Wrong answer!<br>' + images.wrong[counter] + '</p>');
     setTimeout(questionCounter, 4000);
   }
 
-  // Questions holder
-  function questionsHolder() {
+  function unanswered() {
+    unanswered++;
     game =
-      "<p class='timer text-left col-sm-6'>Time Remaining:<br><span class='time'>30</span></p><p class='question text-center'>" +
-      questions[counter].question +
-      "</p><p class='answer first-answer'>" +
+      '<p class="text-center">Time out!</p>' +
+      '<img class="center-block gif col-sm-12" src="https://media.giphy.com/media/dePSX0ft8tlJe/giphy.gif">';
+    $('.main').html(game);
+  }
+
+  // Start the game
+  function startGame() {
+    $('.start-page').css('display', 'none');
+    $('.questions-page').css('visibility', 'visible');
+    $('.timer').html('<p>Time remaining: <span class="time">30</span></p>');
+
+    $('.question').html(questions[counter].question);
+    var showingAnswers =
+      '<p class="answer first-answer">' +
       questions[counter].answers[0].answer +
-      "</p><p class='answer'>" +
+      '</p><p class="answer">' +
       questions[counter].answers[1].answer +
-      "</p><p class='answer'>" +
+      '</p><p class="answer">' +
       questions[counter].answers[2].answer +
-      "</p><p class='answer'>" +
+      '</p><p class="answer">' +
       questions[counter].answers[3].answer +
       '</p>';
-    $('.main').html(game);
+
+    $('.answers').html(showingAnswers);
+
     timerHolder();
   }
 
   function questionCounter() {
     if (counter < 7) {
       counter++;
-      questionsHolder();
+      startGame();
       timer = 30;
       timerHolder();
     }
@@ -173,23 +185,16 @@ $(document).ready(function() {
 
   // Timer function
   function timerHolder() {
+    clearInterval(clock);
     clock = setInterval(seconds, 1000);
     function seconds() {
       if (timer > 0) {
         timer--;
       } else if (timer === 0) {
         clearInterval(clock);
+        unanswered();
       }
-
       $('.time').html(timer);
     }
   }
-
-  // Show questions and answers options
-
-  // When answer was correct or wrong, show some picture
-
-  // Finish the game and show: correct answers, incorrect answers and, unanswered
-
-  // Show button start over
 });
