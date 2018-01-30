@@ -71,10 +71,6 @@ body {
   margin-top: 50px;
 }
 
-.right {
-  font-size: 36px;
-}
-
 .row {
   margin: 0 auto;
 }
@@ -93,4 +89,24 @@ body {
   font-size: 36px;
   color: #ff5270;
   text-align: center;
+}
+
+.final {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.reset-button {
+  background: #ff5270;
+  color: white;
+  border: none;
+  margin-top: 80px;
+  border-radius: 40px;
+  width: 300px;
+}
+
+.reset-button:hover {
+  background: #fed501;
+  border: none;
 }
